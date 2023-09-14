@@ -1,16 +1,18 @@
 import express from "express";
+import connectDB from "./Configs/db.js";
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(connectDB)
 
 app.get("/", (req, res) => {
   return res.json({ message: "E-Commerce Backend is Working Fine" });
 });
 
 app.get("/user", (req,res) => {
-  res.send("<h1>Users</h1>")
+  res.send("<h1>User</h1>")
 })
 
 app.listen(3301, () => {
