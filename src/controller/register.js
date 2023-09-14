@@ -29,11 +29,10 @@ const registerController = {
       // For testing, we'll push it to the mockUsers array.
       mockUsers.push(newUser);
 
-      console.log(process.env.JWT_SECRET_KEY);
 
       // Generate a JWT token for the new user
       const token = jwt.sign({ user: newUser }, process.env.JWT_SECRET_KEY, {
-        algorithm: "HS256",
+        algorithm: process.env.ALGO,
         expiresIn: "24h",
       });
       res.setHeader("Authorization", `Bearer ${token}`);
