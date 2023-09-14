@@ -12,7 +12,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/user", (req,res) => {
-  res.send("<h1>Users</h1>")
+  res.send("<h1>Waqas</h1>")
 })
 
 app.listen(3301, () => {
