@@ -4,6 +4,8 @@ const connectDB = async () => {
   const uri = process.env.MONGOOSE_DB_CONNECTION_STRING_LOCAL;
   mongoose
     .connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       autoCreate: true,
       autoIndex: true,
     })
@@ -14,5 +16,4 @@ const connectDB = async () => {
       console.log("Error connecting db connection", err);
     });
 };
-
 export default connectDB;
