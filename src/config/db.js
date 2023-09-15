@@ -1,19 +1,17 @@
 import mongoose from "mongoose";
 
-// Connect to DB
 const connectDB = async () => {
+  const uri = "mongodb+srv://zainabbhatti808:zainabfirstmay2001@cluster0.i6cukun.mongodb.net/E_commerce";
   mongoose
-    .connect("mongodb+srv://tk55971:KS_Ecommerce@cluster0.zsmjshd.mongodb.net/Ecommerce",
-      {
-         useNewUrlParser: true,
-         useUnifiedTopology: true,
-        
-      }
-    )
-    .then(console.log("Db connected"))
-    .catch((e) => {
-      console.log(e);
+    .connect(uri, {
+      autoCreate: true,
+      autoIndex: true,
+    })
+    .then((res) => {
+      console.log("Connected db connection");
+    })
+    .catch((err) => {
+      console.log("Error connecting db connection", err);
     });
 };
-
 export default connectDB;
