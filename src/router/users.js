@@ -2,10 +2,10 @@ import { Router } from "express";
 import UserController from "../controller/users.js";
 import authController from "../controller/auth.js";
 
-const UserRouter= new Router();
+const userRouter = new Router();
 
-UserRouter.get("/users",UserController.getAll);
-UserRouter.post("user/register",UserController.create);
-UserRouter.put("user/update/:id",UserController.update);
-UserRouter.post("user/login",authController.login);
-export default UserRouter;
+userRouter.get("/users", UserController.getAll);
+userRouter.post("user/register", UserController.create);
+userRouter.put("user/:id", UserController.update);
+userRouter.post("user/login", authController.login);
+export default userRouter;
