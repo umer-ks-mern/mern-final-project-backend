@@ -14,10 +14,6 @@ app.get("/", (req, res) => {
   return res.json({ message: "E-Commerce Backend is Working Fine" });
 });
 
-app.get("/user", (req, res) => {
-  res.send("<h1>User</h1>");
-});
-
 app.listen(process.env.PORT || 3301, () => {
   console.log(
     `E-Commrce ka Backend Server Port: ${process.env.PORT} py active ha`
