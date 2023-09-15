@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema(
     name: {
       type: "string",
       required: true,
+      
     },
     role:{
       type:"string",
@@ -15,7 +16,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     password: {
-      type: "password",
+      type: "string",
       required: true,
     },
     address:{
@@ -23,7 +24,7 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     phone:{
-        type: "number",
+        type: "string",
         required: true,
     },
   },
