@@ -9,23 +9,31 @@ const UserController = {
         return res.json(users);
       },
     create: async (req, res) => {
-    const body = req.body;
-    const hashPassword=await bcryptjs.hash(body.password,12);
-    try{
-    const user = await userModel.create({
-      name: body.name,      
-      email: body.email,
-      address: body.address,
-      phone: body.phone,
-      password: hashPassword 
-    });
-    return res.json({ message: "User Successfully Registered!",user});}
-    catch(error){
-        return res.status(500).json({ message: "Something Bad happened!",error});
+     
+     try{
+        const {name,email,password,adress,phone} = req.body;
+        const hashPassword=await bcryptjs.hash(body.password,12);
 
+    const existingUser = userModel.find(email);
+    if (existingUser) {
+      return res.status(400).json({ message: "Email already exists" });
     }
-  },
-  
+    else {
+     const newUser = await userModel.create({
+       name: body.name,      
+       email: body.email,
+       address: body.address,
+       phone: body.phone,
+       password: hashPassword 
+     });
+     return res.json({ message: "User Successfully Registered!",newUser})
+    }
+    }
+     catch(error){
+         return res.status(500).json({ message: "Something Bad happened!",error});
+     }
+   },
+
   update: async (req, res) => {
     const body = req.body;
     const id = req.params.id;

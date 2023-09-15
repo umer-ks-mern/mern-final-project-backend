@@ -5,15 +5,15 @@ import jwt from "jsonwebtoken";
 
 const authController={
 login : async (req, res, next) => {
-        const { name, email, password } = req.body
+        const {  email, password } = req.body
         // Check if name and email is provided
-        if (!name ||  !email || !password) {
+        if (  !email || !password) {
           return res.status(400).json({
             message: "Data Missing!",
           })
         }
         try {
-            const user = await userModel.findOne({ name, email });
+            const user = await userModel.findOne({  email });
             const result = await bcrypt.compare(req.body.password, user.password);
             if (!user) {
               res.status(401).json({

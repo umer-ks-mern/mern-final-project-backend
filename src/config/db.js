@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 
 const connectDB = async () => {
-  
-  const uri ="mongodb+srv://zainabbhatti808:zainabfirstmay2001@cluster0.i6cukun.mongodb.net/E_commerce";
-   mongoose
+  const uri = process.env.MONGOOSE_DB_CONNECTION_STRING_LOCAL;
+  mongoose
     .connect(uri, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
       autoCreate: true,
       autoIndex: true,
     })
