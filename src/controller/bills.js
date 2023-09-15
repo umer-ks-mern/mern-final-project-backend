@@ -1,7 +1,7 @@
-import billModel from "../model/bills";
-import userModel from "../model/users";
-import productModel from "../model/products";
-import checkoutEmail from "../email/checkout/bill";
+import billModel from "../model/bills.js";
+import userModel from "../model/users.js";
+import productModel from "../model/products.js";
+import checkoutEmail from "../email/checkout/bill.js";
 
 const billController = {
   generateBill: async (req, res) => {

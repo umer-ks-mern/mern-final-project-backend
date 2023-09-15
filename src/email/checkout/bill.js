@@ -1,4 +1,4 @@
-import transport from "../../config/nodemailer";
+import transport from "../../config/nodemailer.js";
 
 const checkoutEmail = (email, bill) => {
   const subject = "Order Confirmation and Bill";
