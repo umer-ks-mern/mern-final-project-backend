@@ -5,10 +5,10 @@ const app = express();
 
 import dotenv from "dotenv";
 dotenv.config();
+connectDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(connectDB);
 
 app.get("/", (req, res) => {
   return res.json({ message: "E-Commerce Backend is Working Fine" });
@@ -18,8 +18,8 @@ app.get("/user", (req, res) => {
   res.send("<h1>User</h1>");
 });
 
-app.listen(process.env.PORT || 3301, () => {
+app.listen(3302, () => {
   console.log(
-    `E-Commrce ka Backend Server Port:3301 py active ha`
+    `E-Commrce ka Backend Server Port: 3302 py active ha`
   );
 });

@@ -25,6 +25,7 @@ const UserController = {
 
     }
   },
+  
   update: async (req, res) => {
     const body = req.body;
     const id = req.params.id;
