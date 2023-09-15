@@ -7,6 +7,9 @@ import mainRouter from "./router/index.js";
 const app = express();
 dotenv.config();
 
+dotenv.config();
+connectDB();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 connectDB()
@@ -21,5 +24,7 @@ app.get("/user", (req,res) => {
 app.use(mainRouter);
 
 app.listen(3301, () => {
-    console.log('E-Commrce ka Backend Server Port: 3301 py active ha');
-})
+  console.log(
+    `E-Commrce ka Backend Server Port: py active ha`
+  );
+});
