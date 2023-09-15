@@ -7,8 +7,7 @@ import mainRouter from "./router/index.js";
 const app = express();
 dotenv.config();
 
-dotenv.config();
-connectDB();
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -18,9 +17,7 @@ app.get("/", (req, res) => {
   return res.json({ message: "E-Commerce Backend is Working Fine" });
 });
 
-app.get("/user", (req,res) => {
-  res.send("<h1>User</h1>")
-})
+
 app.use(mainRouter);
 
 app.listen(process.env.PORT , () => {
