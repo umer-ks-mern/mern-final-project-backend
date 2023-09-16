@@ -16,17 +16,13 @@ const registerController = {
 
       const hashedPassword = await bcryptjs.hash(password, 10);
 
-     
       const newUser = {
         email: email,
         password: hashedPassword,
       };
 
-    
       mockUsers.push(newUser);
 
-
-    
       const token = jwt.sign({ user: newUser }, process.env.JWT_SECRET_KEY, {
         algorithm: process.env.ALGO,
         expiresIn: "24h",
@@ -34,7 +30,7 @@ const registerController = {
       res.setHeader("Authorization", `Bearer ${token}`);
       return res.json({ message: "Registration Successful !!", token: token });
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   },
 };

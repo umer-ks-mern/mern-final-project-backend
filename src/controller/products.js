@@ -3,7 +3,7 @@ import productModel from "../model/products.js";
 const productController = {
   getAll: async (req, res) => {
     try {
-      const products = await productModel.find().populate("user_id");
+      const products = await productModel.find();
       return res.json(products);
     } catch (error) {
       return res.status(500).json({ message: "Internal server error" });
@@ -12,7 +12,7 @@ const productController = {
   getSingle: async (req, res) => {
     try {
       const { id } = req.params;
-      const product = await productModel.findById(id).populate("user_id");
+      const product = await productModel.findById(id);
       if (!product) {
         return res.status(404).json({ message: "Product not found" });
       }
@@ -24,12 +24,15 @@ const productController = {
   create: async (req, res) => {
     try {
       const { name, category, price, quantity, description } = req.body;
+      if (!name || !category || !price || !quantity || !description) {
+        return res.status(400).json({ message: "Missing required fields" });
+      }
       const product = await productModel.create({
-        name,
-        category,
-        price,
-        quantity,
-        description,
+        name: name,
+        category: category,
+        price: price,
+        quantity: quantity,
+        description: description,
       });
 
       return res.json({ message: "Product created", product });

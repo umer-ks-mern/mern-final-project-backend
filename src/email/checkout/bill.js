@@ -1,16 +1,18 @@
 import transport from "../../config/nodemailer.js";
+import productModel from "../../model/products.js";
 
-const checkoutEmail = (email, bill) => {
+const checkoutEmail = async(email, bill) => {
   const subject = "Order Confirmation and Bill";
-  const text = "Your Order is Confirmed!!\n\nBill Details:\n\n";
+  let text = "Your Order is Confirmed!!\n\nBill Details:\n\n";
 
   // Add bill details to the email text
   text += `Total Amount: $${bill.total.toFixed(2)}\n`;
   text += "Products:\n";
   for (const product of bill.products) {
-    text += `- ${product.product_name} (Quantity: ${
+    const productDoc = await productModel.findById(product.product_id);
+    text += `- ${productDoc.name} (Quantity: ${
       product.quantity
-    }, Price: $${product.price.toFixed(2)})\n`;
+    }, Price: $${productDoc.price.toFixed(2)})\n`;
   }
 
   transport.sendMail(

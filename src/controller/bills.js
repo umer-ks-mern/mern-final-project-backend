@@ -14,10 +14,13 @@ const billController = {
 
         if (productDoc) {
           total += productDoc.price * product.quantity;
+          productDoc.quantity -= product.quantity;
+          await productDoc.save();
         }
       }
 
       // Get the user's address based on the user_id
+      
       const user = await userModel.findById(user_id);
 
       // Create a new bill document
@@ -25,7 +28,7 @@ const billController = {
         user_id,
         products,
         total,
-        address: secondaryAddress ? secondaryAddress : secondaryAddress, // Add user's address to the bill
+        address: secondaryAddress || user.address, // Add user's address to the bill
       });
 
       const savedBill = await newBill.save();

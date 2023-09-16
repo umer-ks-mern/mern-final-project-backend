@@ -15,7 +15,7 @@ const billSchema = new mongoose.Schema(
           required: true,
         },
         quantity: {
-          type: "number",
+          type: Number,
           required: true,
           validate: {
             validator: function (value) {
@@ -27,17 +27,17 @@ const billSchema = new mongoose.Schema(
       },
     ],
     address: {
-      type: "string",
+      type: String,
       required: true,
     },
     total: {
-      type: "number",
+      type: Number,
       required: true,
     },
   },
   { timestamps: true }
 );
 
-const billModel = mongoose.model("bill", billSchema);
+const billModel = mongoose.model("bills", billSchema);
 
 export default billModel;
