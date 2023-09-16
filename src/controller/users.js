@@ -40,7 +40,7 @@ const userController = {
           password: hashPassword,
           role: role,
         });
-        const token = jwt.sign({ user: newUser }, process.env.JWT_SECRET_KEY, {
+        const token = jwt.sign({ user: newUser }, process.env.SECRET_KEY, {
           algorithm: process.env.ALGO,
           expiresIn: "24h",
         });
@@ -49,7 +49,7 @@ const userController = {
         return res.json({ message: "User Successfully Registered!", newUser });
       }
     } catch (error) {
-      return res.json({ message: "Something Bad happened!", error });
+      return res.json({ message: error.message,  });
     }
   },
 
@@ -98,7 +98,6 @@ const userController = {
   update: async (req, res) => {
     const body = req.body;
     const id = req.params.id;
-    console.log(id);
     const user = await userModel.findById(id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
