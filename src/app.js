@@ -1,12 +1,19 @@
 import express from "express";
 import connectDB from "./config/db.js";
 import mainRouter from "./router/index.js";
+import cors from "cors";
+import dotenv from "dotenv";
 
 const app = express();
-import dotenv from "dotenv";
 dotenv.config();
 connectDB();
 
+const corsOptions = {
+  origin: "http://localhost:3000",
+  methods: "GET,POST,PUT,DELETE",
+};
+
+app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(mainRouter);
