@@ -1,6 +1,6 @@
 const roleAuth = (req, res, next) => {
   try {
-    const role = req.user.role;
+    const role = req.headers['user-role'];
     console.log(role);
     if (!role || role !== "admin") {
       return res.status(401).json({ message: "Unauthorized" });

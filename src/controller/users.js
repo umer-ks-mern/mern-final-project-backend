@@ -46,54 +46,69 @@ const userController = {
         });
         res.setHeader("Authorization", `Bearer ${token}`);
 
-        return res.json({ message: "User Successfully Registered!", newUser });
+        return res.json({ message: "Registration Successful !!", token: token,newUser });
       }
     } catch (error) {
       return res.json({ message: error.message,  });
     }
   },
-
   login: async (req, res) => {
     const { email, password } = req.body;
-    if (!email || !password) {
+  
+    if (!email) {
       return res.status(400).json({
-        message: "Data Missing!",
+        message: "Email is required!",
       });
     }
+  
+    if (!password) {
+      return res.status(400).json({
+        message: "Password is required!",
+      });
+    }
+  
     try {
       const user = await userModel.findOne({ email });
-      console.log(user);
-      const result = await bcryptjs.compare(password, user.password);
+  
       if (!user) {
-        res.status(401).json({
+        return res.status(401).json({
           message: "Login not successful",
-          error: "Invalid Credentials!",
+          error: "Invalid Email!",
         });
-      } else if (!result) {
-        res.status(401).json({
-          message: "Login not successful",
-          error: "Invalid Credentials!",
-        });
-      } else {
-        // sign token and send it in response
-        const token = await jwt.sign(
-          { name: user.name, email: user.email, id: user.id },
-          process.env.SECRET_KEY,
-          {
-            algorithm: `${process.env.ALGO}`,
-            expiresIn: "24h",
-          }
-        );
-        res.setHeader("Authorization", `Bearer ${token}`);
       }
-      return res.json(user);
+  
+      const passwordMatch = await bcryptjs.compare(password, user.password);
+      
+      if (!passwordMatch) {
+        return res.status(401).json({
+          message: "Login not successful",
+          error: "Invalid Password!",
+        });
+      }
+  
+      const token = jwt.sign(
+        { name: user.name, email: user.email, id: user.id,role:user.role },
+        process.env.SECRET_KEY,
+        {
+          algorithm: process.env.ALGO,
+          expiresIn: "24h",
+        }
+      );
+  
+      // Set the token in the response header
+      res.setHeader("Authorization", `Bearer ${token}`);
+  
+      return res.json({ message: "Login Successful !!", token: token });
     } catch (error) {
-      res.status(400).json({
-        message: "An error occurred",
+      console.error("Login error:", error);
+      return res.status(500).json({
+        message: "An error occurred during login",
         error: error.message,
       });
     }
   },
+
+  
 
   update: async (req, res) => {
     const body = req.body;

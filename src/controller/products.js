@@ -3,12 +3,28 @@ import productModel from "../model/products.js";
 const productController = {
   getAll: async (req, res) => {
     try {
-      const products = await productModel.find();
+      const { q } = req.query; 
+      let query = {}; 
+
+     
+      if (q) {
+        const regex = new RegExp(q, 'i'); 
+        query = {
+          $or: [
+            { name: { $regex: regex } },
+           
+          ],
+        };
+      }
+
+      // Use the query object to find products, including regex search if 'q' is provided
+      const products = await productModel.find(query);
       return res.json(products);
     } catch (error) {
-      return res.status(500).json({ message: "Internal server error" });
+      return res.status(500).json({ message: error.message });
     }
   },
+
   getSingle: async (req, res) => {
     try {
       const { id } = req.params;
