@@ -99,6 +99,9 @@ const productController = {
       return res.status(500).json({ message: "Internal server error" });
     }
   },
+
+  upload:async(req,res)=>
+  console.log(req.file)
 };
 
 export default productController;
