@@ -41,5 +41,10 @@ const billController = {
       res.status(500).json({ error: "Error generating bill" });
     }
   },
+
+    getAll: async (res) => {
+    const bills= await billModel.find();
+    res.json(bills);
+  }
 };
 export default billController;
